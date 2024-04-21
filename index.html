@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mock Bank</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Mock Bank</h1>
+  </header>
+  <main>
+    <div class="container">
+      <h2>Welcome to Mock Bank!</h2>
+
+      <!-- Login Form -->
+      <div class="form-container" id="login-form">
+        <h3>Login</h3>
+        <form id="login-form">
+          <label for="username">Username:</label>
+          <input type="text" id="username" name="username" required>
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" required>
+          <button type="submit">Login</button>
+          <p class="error-message"></p>
+        </form>
+        <a href="#" id="switch-to-register">Don't have an account? Register Here</a>
+      </div>
+
+      <!-- Registration Form -->
+      <div class="form-container" id="register-form" style="display: none;">
+        <h3>Register</h3>
+        <form id="registration-form">
+          <label for="username">Username:</label>
+          <input type="text" id="username" name="username" required>
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" required>
+          <label for="confirm-password">Confirm Password:</label>
+          <input type="password" id="confirm-password" name="confirm-password" required>
+          <button type="submit">Register</button>
+          <p class="error-message"></p>
+        </form>
+      </div>
+
+      <div id="account-summary" style="display: none;">
+        <h2>Welcome, <span id="welcome-name"></span></h2>
+        <p>Account Type: <span id="account-type"></span></p>
+        <p>Account Balance: $<span id="account-balance"></span></p>
+      </div>
+    </div>
+  </main>
+  <footer>
+    <p>&copy; 2024 Mock Bank (for educational purposes only)</p>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
