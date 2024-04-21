@@ -90,6 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Check if user is already logged in
   if (localStorage.getItem('userData')) {
     retrieveUserData();
+    loginForm.style.display = 'none';
   } else {
     loginForm.style.display = 'block';
   }
