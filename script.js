@@ -1,15 +1,18 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const registerForm = document.getElementById('registration-form');
+  const registerForm = document.getElementById('register-form');
   const loginForm = document.getElementById('login-form');
   const errorMessage = document.querySelector('.error-message');
   const accountSummary = document.getElementById('account-summary');
   const welcomeName = document.getElementById('welcome-name');
   const switchToRegister = document.getElementById('switch-to-register');
 
+  console.log('Script loaded');
+
   // Function to store user data in local storage
   function storeUserData(username, password) {
     const userData = { username, password, accountType: 'Checking (Mock)', accountBalance: 1000.00 };
     localStorage.setItem('userData', JSON.stringify(userData));
+    console.log('User registered:', userData);
   }
 
   // Function to retrieve user data from local storage
@@ -21,12 +24,14 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('account-type').textContent = userData.accountType;
       document.getElementById('account-balance').textContent = `$${userData.accountBalance.toFixed(2)}`;
       accountSummary.style.display = 'block';
+      console.log('User data retrieved:', userData);
     }
   }
 
   // Handle form switching between register and login
   switchToRegister.addEventListener('click', function(event) {
     event.preventDefault();
+    console.log('Switching to registration form');
     loginForm.style.display = 'none';
     registerForm.style.display = 'block';
     errorMessage.textContent = '';
@@ -35,13 +40,15 @@ document.addEventListener('DOMContentLoaded', () => {
   // Handle registration form submission
   registerForm.addEventListener('submit', function(event) {
     event.preventDefault();
+    console.log('Registration form submitted');
 
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-    const confirmPassword = document.getElementById('confirm-password').value;
+    const username = document.getElementById('register-username').value;
+    const password = document.getElementById('register-password').value;
+    const confirmPassword = document.getElementById('confirm-register-password').value;
 
     if (password !== confirmPassword) {
       errorMessage.textContent = 'Passwords do not match';
+      console.log('Passwords do not match');
       return;
     }
 
@@ -57,6 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Handle login form submission
   loginForm.addEventListener('submit', function(event) {
     event.preventDefault();
+    console.log('Login form submitted');
 
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
@@ -68,11 +76,14 @@ document.addEventListener('DOMContentLoaded', () => {
         errorMessage.textContent = '';
         retrieveUserData();
         loginForm.reset();
+        console.log('User logged in:', userData);
       } else {
         errorMessage.textContent = 'Invalid username or password';
+        console.log('Invalid username or password');
       }
     } else {
       errorMessage.textContent = 'No account registered';
+      console.log('No account registered');
     }
   });
 
@@ -83,9 +94,3 @@ document.addEventListener('DOMContentLoaded', () => {
     loginForm.style.display = 'block';
   }
 });
-
-
-
-
-
-
