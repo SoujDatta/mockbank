@@ -10,16 +10,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Function to store user data in local storage
   function storeUserData(username, password) {
-    const userData = { username, password, accountType: 'Checking (Mock)', accountBalance: 1000.00 };
-    localStorage.setItem('userData', JSON.stringify(userData));
+    let users = JSON.parse(localStorage.getItem('users')) || [];
+    const userData = { id: Date.now(), username, password, accountType: 'Checking (Mock)', accountBalance: 1000.00 };
+    users.push(userData);
+    localStorage.setItem('users', JSON.stringify(users));
     console.log('User registered:', userData);
   }
 
   // Function to retrieve user data from local storage
-  function retrieveUserData() {
-    const userDataJSON = localStorage.getItem('userData');
-    if (userDataJSON) {
-      const userData = JSON.parse(userDataJSON);
+  function retrieveUserData(username) {
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+    const userData = users.find(user => user.username === username);
+    if (userData) {
       welcomeName.textContent = userData.username;
       document.getElementById('account-type').textContent = userData.accountType;
       document.getElementById('account-balance').textContent = `$${userData.accountBalance.toFixed(2)}`;
@@ -53,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     storeUserData(username, password);
-    retrieveUserData();
+    retrieveUserData(username);
     registerForm.reset();
 
     // Switch to login form after successful registration
@@ -69,28 +71,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
 
-    const userDataJSON = localStorage.getItem('userData');
-    if (userDataJSON) {
-      const userData = JSON.parse(userDataJSON);
-      if (username === userData.username && password === userData.password) {
-        errorMessage.textContent = '';
-        retrieveUserData();
-        loginForm.reset();
-        console.log('User logged in:', userData);
-      } else {
-        errorMessage.textContent = 'Invalid username or password';
-        console.log('Invalid username or password');
-      }
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+    const userData = users.find(user => user.username === username && user.password === password);
+
+    if (userData) {
+      errorMessage.textContent = '';
+      retrieveUserData(username);
+      loginForm.reset();
+      console.log('User logged in:', userData);
     } else {
-      errorMessage.textContent = 'No account registered';
-      console.log('No account registered');
+      errorMessage.textContent = 'Invalid username or password';
+      console.log('Invalid username or password');
     }
   });
 
   // Check if user is already logged in
-  if (localStorage.getItem('userData')) {
-    retrieveUserData();
-    loginForm.style.display = 'none';
+  if (localStorage.getItem('users')) {
+    loginForm.style.display = 'block';
   } else {
     loginForm.style.display = 'block';
   }
