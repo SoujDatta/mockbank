@@ -26,8 +26,8 @@ function retrieveUserData() {
 // Handle form switching between register and login
 switchToRegister.addEventListener('click', function(event) {
   event.preventDefault();
-  registerForm.style.display = 'block';
   loginForm.style.display = 'none';
+  registerForm.style.display = 'block';
   errorMessage.textContent = '';
 });
 
@@ -47,10 +47,10 @@ registerForm.addEventListener('submit', function(event) {
   storeUserData(username, password);
   retrieveUserData();
   registerForm.reset();
-  
+
   // Switch to login form after successful registration
-  registerForm.style.display = 'none';
   loginForm.style.display = 'block';
+  registerForm.style.display = 'none';
 });
 
 // Handle login form submission
@@ -81,6 +81,7 @@ if (localStorage.getItem('userData')) {
 } else {
   loginForm.style.display = 'block';
 }
+
 
 
 
